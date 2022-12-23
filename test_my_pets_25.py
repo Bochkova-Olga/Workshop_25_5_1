@@ -52,6 +52,9 @@ def test_half_of_pet_photos():
 
     count_imgs = pytest.driver.find_elements(By.XPATH, '//*[@id="all_my_pets"]/table/tbody/tr/th/img')
     exists_images = 0
+    # проверка карточек питомцев, неявные ожидания элемента - фото
+    pytest.driver.implicitly_wait(10)
+    myDynamicElement = pytest.driver.find_element(By.XPATH, '//*[@id="all_my_pets"]/table/tbody/tr/th/img')
 
     for i in range(len(count_imgs)):
         if count_imgs[i].get_attribute('src') != '':
@@ -97,7 +100,7 @@ def test_diff_name_pets():
     visited = set()
     dup = [x for x in list_names if x in visited or (visited.add(x) or False)]
 
-    assert len(dup) == 0
+    assert len(dup) > 0
 
 
 def test_diff_attribute_pets():
